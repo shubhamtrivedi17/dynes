@@ -16,10 +16,29 @@ def write_dynes(settings, materials, layers, bedrock, eqdata, folder_path):
         folder_path (str): Path to analysis folder
     """
 
+    ## Add some default material data parameters
+    for mat in materials:
+        mat['ncon'] = '104'
+        mat['uwei'] *= 1E3
+        mat['ak'] = mat['vs'] ** 2 * mat['uwei'] / 9.80665
+        mat['ifdsp'] = '1'
+        mat['itp'] = '5'
+        mat['nrev'] = 100
+        mat['alpha'] = ''
+        mat['beta'] = ''
+
+        ## Add nonlin data
+        nonlin_df = pandas.read_csv(mat['nonlin'], header=0, skiprows=[1])
+        mat['par1'] = len(nonlin_df)
+        mat['strn'] = nonlin_df.strn.to_list()
+        mat['gg0'] = nonlin_df.gg0.to_list()
+        mat['damp'] = nonlin_df.damp.to_list()
+
     ## Define settings from layers and materials data
     settings['nlay'] = len(layers)
     settings['nmat'] = len(materials)
 
+    ## Write dynes inpur file
     with open(f"{folder_path}\\dynes.dat", 'w', encoding='utf-8') as file:
 
         ## Write analysis settings

@@ -4,5 +4,5 @@
     "path_layers": "input_eqdata.csv",
     "path_bedrock": "input_bedrock.csv",
     "path_eqdata": "input_eqdata.csv",
-    "path_folder": "example"
+    "analysis_folder": "example"
 }
