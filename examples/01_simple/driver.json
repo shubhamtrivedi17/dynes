@@ -1,7 +1,7 @@
 {
     "path_settings": "input_settings.csv",
     "path_materials": "input_materials.csv",
-    "path_layers": "input_eqdata.csv",
+    "path_layers": "input_layers.csv",
     "path_bedrock": "input_bedrock.csv",
     "path_eqdata": "input_eqdata.csv",
     "analysis_folder": "example"

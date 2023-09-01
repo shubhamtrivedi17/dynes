@@ -47,7 +47,7 @@ def extract_results(folder_path):
                 else:
                     t_data = numpy.arange(0, datnum * dt, dt)
                     df = pandas.DataFrame({'time': t_data, quant: data})
-                    df.to_csv(f"output//{quant}_{layer}.csv", index=False, encoding="utf-8")
+                    df.to_csv(f"{folder_path}\\output\\{quant}_{layer}.csv", index=False, encoding="utf-8")
                     data = []
                     header = file.readline()
                     layer = header.split("At Layer=")[1].split()[0]

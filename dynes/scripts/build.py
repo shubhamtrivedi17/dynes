@@ -129,6 +129,28 @@ def write_dynes(settings, materials, layers, bedrock, eqdata, folder_path):
         file.write("\n")
 
 
+def write_eq(eqdata, folder_path):
+
+    ## Read CSV data file
+    eqwave_df = pandas.read_csv(eqdata['eqcsv'], header=0)
+    val_dt = eqwave_df.t.iloc[1] - eqwave_df.t.iloc[0]
+    val_n = len(eqwave_df)
+    val_max = eqwave_df.acc.max()
+    val_format = '(8F10.7)'
+
+    ## Update data in eqdata dict
+    eqdata['ndata'] = val_n
+    eqdata['dt'] = val_dt
+
+    ## Write eqwave data to .dat file
+    writer = ff.FortranRecordWriter(val_format)
+    with open(f"{folder_path}\{eqdata['eqfil']}", 'w+', encoding="utf-8") as file:
+        file.write(f"NAME={eqdata['eqnam']}\tSKIP=1\tDT={val_dt}\tN={val_n}\tMAX={val_max}\tFORMAT={val_format}\n")
+        file.write(writer.write(eqwave_df.acc.to_list()))
+
+    return eqdata
+
+
 def write_post(settings, folder_path):
     """_summary_
 
