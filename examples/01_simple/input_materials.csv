@@ -1,0 +1,4 @@
+name,depth,uwei,vs,nonlin
+[-],[m],[kN/m^3],[m/s],[-]
+As1,7.5,17.8,200,model-1
+As2,20,18.1,300,model-2
