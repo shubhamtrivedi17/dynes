@@ -25,7 +25,8 @@ setup(
         "numpy",
         "pandas",
         "fortranformat",
-        "matplotlib"],
+        "matplotlib",
+        "pyrotd"],
 
     entry_points={
         "console_scripts": [

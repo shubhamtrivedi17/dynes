@@ -23,6 +23,10 @@ def dynes(settings, materials, layers, bedrock, eqdata, path_analysis):
 
     postprocess.extract_results(path_analysis)
     print("Finished extracting results")
+    postprocess.calc_spect(path_analysis)
+    print("Finished calculating response spectrum")
+    postprocess.plot_results(path_analysis, layers)
+    print("Finished plotting results")
 
 
 def load_inputs(path_settings, path_materials, path_layers, path_bedrock, path_eqdata):
