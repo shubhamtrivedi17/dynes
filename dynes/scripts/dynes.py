@@ -11,22 +11,28 @@ import dynes.scripts.postprocess as postprocess
 
 def dynes(settings, materials, layers, bedrock, eqdata, path_analysis):
 
+    print("Writing input data files...")
     eqdata = build.write_eq(eqdata, path_analysis)
     build.write_dynes(settings, materials, layers, bedrock, eqdata, path_analysis)
     build.write_post(settings, path_analysis)
-    print("Finished writing input data files")
+    print("\t\tFINISHED!")
     
+    print("Running DYNES analysis...")
     run.dynes(path_analysis)
-    print("Finished DYNES analysis")
+    print("\t\tFINISHED!")
+    print("Running DYNES postprocessing...")
     run.pstdynes(path_analysis)
-    print("Finished DYNES postprocess")
+    print("\t\tFINISHED!")
 
+    print("Extracting results...")
     postprocess.extract_results(path_analysis)
-    print("Finished extracting results")
+    print("\t\tFINISHED!")
+    print("Caclulating response spectrum...")
     postprocess.calc_spect(path_analysis)
-    print("Finished calculating response spectrum")
+    print("\t\tFINISHED!")
+    print("Plotting results...")
     postprocess.plot_results(path_analysis, layers)
-    print("Finished plotting results")
+    print("\t\tFINISHED!")
 
 
 def load_inputs(path_settings, path_materials, path_layers, path_bedrock, path_eqdata):

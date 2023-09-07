@@ -117,7 +117,7 @@ def plot_results(folder_path, layers):
 
     ## Plot response spectrum for all layers
     for spect_file in glob.glob(f"{folder_path}\\output\\spect_*.csv"):
-        layer = spect_file.split("spect_")[-1].split(".csv")[0]
+        layer = spect_file.split("\\output\\spect_")[-1].split(".csv")[0]
         spect = pandas.read_csv(spect_file)
 
         fig, ax = pyplot.subplots(figsize=(7, 7))
@@ -129,4 +129,20 @@ def plot_results(folder_path, layers):
         ax.set_ylim(bottom=0)
         ax.grid(True)
         fig.savefig(f"{folder_path}\\output\\spect_{layer}.svg", bbox_inches="tight")
+        pyplot.close(fig)
 
+    ## Plot hysteresis curves for all layers
+    strain_files = glob.glob(f"{folder_path}\\output\\strain_*.csv")
+    stress_files = glob.glob(f"{folder_path}\\output\\stress_*.csv")
+    for strain_file, stress_file in zip(strain_files, stress_files):
+        layer = strain_file.split("\\output\\strain_")[-1].split(".csv")[0]
+        strain = pandas.read_csv(strain_file)
+        stress = pandas.read_csv(stress_file)
+
+        fig, ax = pyplot.subplots(figsize=(7, 7))
+        ax.plot(strain.strain * 100, stress.stress / 1000)
+        ax.set_xlabel('Strain (%)')
+        ax.set_ylabel('Shear stress (kPa)')
+        ax.grid(True)
+        fig.savefig(f"{folder_path}\\output\\strsstrn_{layer}.svg", bbox_inches="tight")
+        pyplot.close(fig)
